@@ -1,0 +1,7 @@
+.vscode
+.envrc*
+
+/data
+/target
+cursor.yaml
+out/
