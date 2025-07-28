@@ -38,8 +38,6 @@ impl SubstreamsEndpoint {
             _ => panic!("invalid uri scheme for firehose endpoint"),
         }
         .connect_timeout(Duration::from_secs(10))
-        .http2_keep_alive_interval(Duration::from_secs(15))
-        .concurrency_limit(256)
         .tcp_keepalive(Some(Duration::from_secs(30)));
 
         let uri = endpoint.uri().to_string();
@@ -74,7 +72,7 @@ impl SubstreamsEndpoint {
         )
         .accept_compressed(CompressionEncoding::Gzip)
         .send_compressed(CompressionEncoding::Gzip)
-        .max_decoding_message_size(1 * 1024 * 1024);
+        .max_decoding_message_size(10 * 1024 * 1024);
 
         let response_stream = client.blocks(request).await?;
         let block_stream = response_stream.into_inner();
