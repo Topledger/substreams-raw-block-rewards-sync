@@ -34,7 +34,7 @@ pub struct BlockRewardWrap {
     #[arrow_field(data_type = "Timestamp(Millisecond, None)")]
     pub block_timestamp: i64,
     pub pubkey: String,
-    pub lamports: u64,
+    pub lamports: i64,
     pub post_balance: u64,
     pub reward_type: String,
     pub commission: u64,

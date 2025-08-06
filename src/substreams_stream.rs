@@ -168,8 +168,8 @@ async fn process_substreams_response(
     match response.message {
         Some(Message::Session(session)) => {
             println!(
-                "Received session message (Workers {}, Trace ID {})",
-                session.max_parallel_workers, &session.trace_id
+                "Received session message (Trace ID {})",
+                 &session.trace_id
             );
             BlockProcessedResult::Skip()
         }
@@ -181,14 +181,9 @@ async fn process_substreams_response(
         }
         Some(Message::Progress(progress)) => {
             if last_progress_report.elapsed() > Duration::from_secs(30) {
-                let processed_bytes = progress.processed_bytes.unwrap_or_default();
 
                 println!(
-                    "Latest progress message received (Stages: {}, Jobs: {}, Processed Bytes: [Read: {}, Written: {}])",
-                    progress.stages.len(),
-                    progress.running_jobs.len(),
-                    processed_bytes.total_bytes_read,
-                    processed_bytes.total_bytes_written,
+                    "Latest progress message received"
                 );
                 *last_progress_report = Instant::now();
             }
